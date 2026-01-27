@@ -1,11 +1,6 @@
-
 a = int(input())
-b = int(input())
-
-
-if a > b:
-    print(a)
-elif b > a:
-    print(b)
-else:
-    print("equal")
+if a % 4==0 and a%100!=0:
+    print("YES") 
+elif a%400==0:
+    print("YES")
+else: print("NO")
