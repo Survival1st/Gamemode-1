@@ -1,4 +1,8 @@
 a = int(input())
-b = int()
-if pow(2, bg) == a:
+b = 1
+while b < a:
+    b = b * 2
+if b == a:
     print("YES")
+else:
+    print("NO")
