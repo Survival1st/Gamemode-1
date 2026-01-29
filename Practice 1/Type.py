@@ -1,3 +1,8 @@
+#1 example
+x = 5
+print(type(x))
+
+#2 example
 x = 1    # int
 y = 2.8  # float
 z = 1j   # complex
