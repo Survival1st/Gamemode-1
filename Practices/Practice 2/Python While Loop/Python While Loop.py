@@ -1,0 +1,22 @@
+#1 example
+i = 1
+while i < 6:
+    print(i)
+    i += 1  
+
+#2 example
+i = 1
+while i < 10:
+    print(i)
+    if i == 3:
+        break # Stops the loop
+    i += 1
+
+#3 example
+i = 0
+while i < 6:
+    i += 1
+    if i == 3:
+        continue # Skips if i is 3
+    print(i)
+
