@@ -1,0 +1,8 @@
+#1 example
+A = {1, 2, 3}
+B = {1, 2, 3, 4, 5}
+
+print(A.issubset(B))    # True
+print(B.issuperset(A))  # True
+print(A.isdisjoint(B))  # False 
+
