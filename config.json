@@ -1,0 +1,9 @@
+{
+    "debug": true,
+    "permissions": [
+        "read",
+        "write",
+        "execute"
+    ],
+    "version": 1.0
+}

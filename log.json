@@ -1,0 +1,18 @@
+[
+  {
+    "event": "login",
+    "id": 501
+  },
+  {
+    "event": "logout",
+    "id": 501
+  },
+  {
+    "event": "login",
+    "id": 501
+  },
+  {
+    "event": "logout",
+    "id": 501
+  }
+]
