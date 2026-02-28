@@ -34,8 +34,31 @@ except EOFError:
     pass'''
 
 # Attempt 4
-n = int(input())
-output = [] 
-for i in range(0, n + 1, 2):
-    output.append(str(i))
-print(",".join(output))
+import sys
+
+def even_generator(n):
+    for i in range(0, n + 1, 2):
+        yield str(i)
+
+def main():
+    try:
+        input_data = sys.stdin.read().strip()
+        if not input_data:
+            return
+        
+        n = int(input_data)
+        gen = even_generator(n)
+        
+        first = True
+        for val in gen:
+            if not first:
+                sys.stdout.write(',')
+            sys.stdout.write(val)
+            first = False
+        sys.stdout.write('\n')
+        
+    except (EOFError, ValueError):
+        pass
+
+if __name__ == "__main__":
+    main()
