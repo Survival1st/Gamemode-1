@@ -1,5 +1,5 @@
 # 1
-names = ["Akyltai","Karina","Malika","Asan"]
+names = ["Rasyl","Karina","Mika","Galym"]
 for i,j in enumerate(names):
     print(f'N{i+1} - {j}')
 # 2

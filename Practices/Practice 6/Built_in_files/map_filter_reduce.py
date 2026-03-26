@@ -8,7 +8,7 @@ lst1 = [3,9,27,282,93,4,5]
 b = list(filter(lambda x:x%3 == 0,lst1))
 print(b)
 # 3
-a = ["Akyltai", "want", "4.00 GPA"]
+a = ["Daylet", "want", "4.00 GPA"]
 r = reduce(lambda x, y: x + "_" + y, a)
 print(r)
 # 4
