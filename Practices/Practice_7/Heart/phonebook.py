@@ -21,7 +21,7 @@ def insert_data_by_consol():
     execute_query(sql,(name,num))
 
 def insert_data_from_csv(file_path):
-    sql = "INSERT INTO phonebook(name,phone_name) VALUES(%s,%s)"
+    sql = "INSERT INTO phonebook(name,phone_number) VALUES(%s,%s)"
     config = load_config()
     try:
         with psycopg2.connect(**config) as conn:
@@ -73,10 +73,13 @@ def execute_query(sql,params=None):
         print(f'BD error{e}')
 
 if __name__ == "__main__":
-    create_table()
-    insert_data_by_consol()
-    insert_data_from_csv()
-    execute_query()
-    delete()
-    search_to_insert()
-    update_data()
+    #create_table()
+    '''while True:
+        insert_data_by_consol()
+        again = input("Хотите продолжить? (y/n)")
+        if again.lower() != 'y':
+            break'''
+    insert_data_from_csv('phonebook.csv')
+    #update_data()
+    #search_to_insert()
+    #delete()
