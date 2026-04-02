@@ -1,7 +1,7 @@
 CREATE OR REPLACE PROCEDURE upsert_contact(p_name VARCHAR, p_phone VARCHAR)
 AS $$
 BEGIN
-    INSERT INTO phonebook (name, phone)
+    INSERT INTO lake (name, phone)
     VALUES (p_name, p_phone)
     ON CONFLICT (name) 
     DO UPDATE SET phone = EXCLUDED.phone;
@@ -21,7 +21,7 @@ DECLARE
 BEGIN
     FOR i IN 1 .. array_upper(p_names, 1) LOOP
         IF p_phones[i] ~ '^[0-9]{11}$' THEN
-            INSERT INTO phonebook (name, phone)
+            INSERT INTO lake (name, phone)
             VALUES (p_names[i], p_phones[i])
             ON CONFLICT (name) DO UPDATE SET phone = EXCLUDED.phone;
         ELSE

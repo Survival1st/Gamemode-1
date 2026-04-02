@@ -3,7 +3,7 @@ RETURNS TABLE(id INT, name VARCHAR, phone VARCHAR) AS $$
 BEGIN
     RETURN QUERY
     SELECT p.id, p.name, p.phone 
-    FROM phonebook p
+    FROM lake p
     WHERE p.name ILIKE '%' || search_pattern || '%' 
        OR p.phone ILIKE '%' || search_pattern || '%';
 END;
@@ -15,7 +15,7 @@ RETURNS TABLE(id INT, name VARCHAR, phone VARCHAR) AS $$
 BEGIN
     RETURN QUERY
     SELECT p.id, p.name, p.phone 
-    FROM phonebook p
+    FROM lake p
     ORDER BY p.id
     LIMIT p_limit OFFSET p_offset;
 END;

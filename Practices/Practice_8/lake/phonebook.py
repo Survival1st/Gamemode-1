@@ -1,62 +1,73 @@
 import psycopg2
-from Practices.Practice_8.lake.config import load_config
+from psycopg2 import extras
+from config import load_config
 
-
-def call_procedure(proc_name, params):
+def call_procedure(proc_name, params=None):
     config = load_config()
+    if params is None:
+        params = ()
+
     try:
         with psycopg2.connect(**config) as conn:
             with conn.cursor() as cur:
+                placeholders = ", ".join(["%s"] * len(params))
+                
                 if proc_name == "insert_many_contacts":
-                    
-                    cur.execute(f"CALL {proc_name}(%s, %s, NULL)", params)
-                    invalid_data = cur.fetchone()[0]
+                    query = f"CALL {proc_name}(%s, %s, NULL)"
+                    cur.execute(query, params)
+                    result = cur.fetchone()
                     conn.commit()
-                    return invalid_data
+                    return result[0] if result else None
                 else:
-                    
-                    cur.execute(f"CALL {proc_name}(%s, %s)", params) if len(params) > 1 else cur.execute(f"CALL {proc_name}(%s)", params)
+                    query = f"CALL {proc_name}({placeholders})"
+                    cur.execute(query, params)
                     conn.commit()
     except Exception as e:
-        print(f"Процедура қатесі: {e}")
+        print(f"Error: {e}")
+        return None
 
-
-def call_function(func_name, params):
+def call_function(func_name, params=None):
     config = load_config()
+    if params is None:
+        params = ()
+
     try:
         with psycopg2.connect(**config) as conn:
-            with conn.cursor() as cur:
-                if len(params) > 1:
-                    cur.execute(f"SELECT * FROM {func_name}(%s, %s)", params)
-                else:
-                    cur.execute(f"SELECT * FROM {func_name}(%s)", params)
-                return cur.fetchall()
+            with conn.cursor(cursor_factory=extras.DictCursor) as cur:
+                placeholders = ", ".join(["%s"] * len(params))
+                query = f"SELECT * FROM {func_name}({placeholders})"
+                cur.execute(query, params)
+                return [dict(row) for row in cur.fetchall()]
     except Exception as e:
-        print(f"Функция қатесі: {e}")
+        print(f"Error: {e}")
         return []
 
-
 if __name__ == "__main__":
-    
-    print("--- 1. Қосу/Жаңарту орындалуда... ---")
-    call_procedure("upsert_contact", ("Meirzhan", "87071112233"))
+    call_procedure("upsert_contact", ("Ansar", "87751437232"))
 
-    
-    print("\n--- 3. Топтық енгізу (Валидациямен) ---")
-    names = ['Alikhan', 'Nurbek', 'Sanzhar']
-    phones = ['87075556677', '777', '87001112233'] 
-    invalid = call_procedure("insert_many_contacts", (names, phones))
-    if invalid:
-        print("Қате болғандықтан енгізілмегендер:", invalid)
+    print("-----------------------------------")
 
-    
-    print("\n--- 4. Іздеу нәтижесі ('Ali' бойынша) ---")
-    search_results = call_function("get_contacts_by_pattern", ("Ali",))
+    names = ['Sofia', 'Nurazamat', 'Sanzhar']
+    phones = ['87075598777', '347', '87001163543']
+    invalid_data = call_procedure("insert_many_contacts", (names, phones))
+    if invalid_data:
+        print(f"Invalid: {invalid_data}")
+
+    print("-----------------------------------")
+
+    search_results = call_function("get_contacts_by_pattern", ("Sa",))
     for row in search_results:
         print(row)
 
-    
-    print("\n--- 5. Пагинация (Limit: 5, Offset: 0) ---")
-    page = call_function("get_contacts_paged", (5, 0))
-    for row in page:
+    print("-----------------------------------")
+
+    page_data = call_function("get_contacts_paged", (5, 0))
+    for row in page_data:
         print(row)
+    
+    print("-----------------------------------")
+
+    
+    # all_contacts = call_function("get_all_contacts")
+    # for row in all_contacts:
+    #     print(row)
