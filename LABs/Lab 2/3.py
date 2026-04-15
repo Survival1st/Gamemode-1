@@ -1,4 +1,3 @@
-n = int(input())
-numbers = list(map(int, input().split()))
-total_sum = sum(numbers)
-print(total_sum)
+a = 17 // (23 % 7)
+b = 34 % a * 5 - 29 % 4 * 3
+print(a * b)

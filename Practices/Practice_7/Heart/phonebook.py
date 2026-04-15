@@ -38,12 +38,12 @@ def insert_data_from_csv(file_path):
 def update_data():
     old_name = input()
     new_num = input()
-    sql = "UPDATE TABLE Phonebook SET phone_number = %s WHERE name = %s"
+    sql = "UPDATE TABLE phonebook SET phone_number = %s WHERE name = %s"
     execute_query(sql,(new_num,old_name))
     print("Succesfully work")
 
 def search_to_insert():
-    sql = "SELECT * FROM Phonebook WHERE name LIKE %s"
+    sql = "SELECT * FROM phonebook WHERE name LIKE %s"
     search = input()
     config = load_config()
     try:
@@ -80,6 +80,7 @@ if __name__ == "__main__":
         if again.lower() != 'y':
             break'''
     insert_data_from_csv('phonebook.csv')
-    #update_data()
+    update_data()
+    print("-----------------------------------")
     #search_to_insert()
     #delete()
