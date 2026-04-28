@@ -2,7 +2,7 @@ import pygame
 import datetime
 import sys
 
-WIDTH, HEIGHT = 800, 800
+WIDTH, HEIGHT = 800, 600
 FPS = 60
 
 def main():
