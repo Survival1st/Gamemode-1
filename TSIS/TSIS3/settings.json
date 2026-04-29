@@ -1,1 +1,5 @@
-{"sound": true, "color": "BLUE", "diff": "Easy"}
+{
+    "sound": true,
+    "car_color": "RED",
+    "difficulty": "Normal"
+}
